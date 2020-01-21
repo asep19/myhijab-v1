@@ -58,6 +58,15 @@ app.put('/api/products/:id', (req, res) => {
     });
 });
 
+// delete produk
+app.delete('/api/products/:id', (req, res) => {
+    let sql = "DELETE FROM product WHERE product_id="+req.params.id+"";
+    let query = conn.query(sql, (err, results) => {
+        if (err) throw err;
+        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    });
+});
+
 //server
 app.listen(3000, () => {
     console.log('server started on port 3000...');
