@@ -2,25 +2,28 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 
-// create database connection
+// create database connection and connect to database
 const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'myhijab'
 });
-// connect to database
 conn.connect((err) => {
     if(err) throw err;
     console.log('mysql Connected');
 });
 
 app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use('/assets', express_static(__dirname + '/public'));
 
 app.set('views', path.join(__dirname, 'views')); // set views file
+app.set('view engine', 'hbs');
 
 // tampilkan semua data produk
 app.get('/api/products', (req, res) => {
