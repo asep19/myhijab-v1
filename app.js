@@ -37,22 +37,14 @@ app.get('/', (req, res) => {
     });
 });
 
-// tampilkan data produk berdasarkan id 
-app.get('/api/products/:id', (req, res) => {
-    let sql = "SELECT * FROM product WHERE product_id = "+req.params.id;
-    let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-    });
-}); 
-
-// tambah produk
-app.post('/api/products', (req, res) => {
+// tambah data
+app.post('/save', (req, res) => {
     let data = {product_name: req.body.product_name, product_price: req.body.product_price};
     let sql = "INSERT INTO product SET ?";
     let query = conn.query(sql, data, (err, results) => {
         if (err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        res.redirect('/');
+        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
     });
 });
 
@@ -66,11 +58,12 @@ app.put('/api/products/:id', (req, res) => {
 });
 
 // delete produk
-app.delete('/api/products/:id', (req, res) => {
-    let sql = "DELETE FROM product WHERE product_id="+req.params.id+"";
+app.delete('/delete', (req, res) => {
+    let sql = "DELETE FROM product WHERE product_id="+req.body.product_id+"";
     let query = conn.query(sql, (err, results) => {
         if (err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        res.redirect('/');
+        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
     });
 });
 
