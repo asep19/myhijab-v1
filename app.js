@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const path = require('path');
 
 const app = express();
 
@@ -20,6 +21,8 @@ conn.connect((err) => {
     if(err) throw err;
     console.log('mysql Connected');
 });
+
+app.set('views', path.join(__dirname, 'views'));
 
 // tampilkan semua data produk
 app.get('/api/products', (req, res) => {
