@@ -38,3 +38,8 @@ app.get('/api/products/:id', (req, res) => {
         res.send(JSON.stringify({"status": 200, "error": null, "responses": results}));
     })
 })
+
+//server
+app.listen(3000, () => {
+    console.log('server started on port 3000...');
+});
