@@ -19,18 +19,21 @@ conn.connect((err) => {
 });
 
 app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use('/assets', express_static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/assets', express.static(__dirname + '/public'));
 
 app.set('views', path.join(__dirname, 'views')); // set views file
 app.set('view engine', 'hbs');
 
-// tampilkan semua data produk
-app.get('/api/products', (req, res) => {
+// route untuk homepage
+app.get('/', (req, res) => {
     let sql = "SELECT * FROM product";
     let query = conn.query(sql, (err, results) => {
         if (err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        res.render('product_view', {
+            results: results
+        });
+        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
     });
 });
 
