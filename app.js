@@ -49,6 +49,15 @@ app.post('/api/products', (req, res) => {
     });
 });
 
+// edit produk
+app.put('/api/products/:id', (req, res) => {
+    let sql = "UPDATE product SET product_name ='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id='"+req.params.id;
+    let query = conn.query(sql, (err, results) => {
+        if (err) throw err;
+        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    });
+});
+
 //server
 app.listen(3000, () => {
     console.log('server started on port 3000...');
