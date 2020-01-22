@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
 const hbs = require('hbs');
-
 const app = express();
-
 // create database connection and connect to database
 const conn = mysql.createConnection({
     host: 'localhost',
@@ -49,23 +47,24 @@ app.post('/save', (req, res) => {
 });
 
 // edit produk
-app.put('/api/products/:id', (req, res) => {
-    let sql = "UPDATE product SET product_name ='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.params.id;
+app.post('/update', (req, res) => {
+    let sql = "UPDATE product SET product_name ='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.body.id;
     let query = conn.query(sql, (err, results) => {
         if (err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        res.redirect('/');
     });
 });
 
 // delete produk
-app.delete('/delete', (req, res) => {
+app.post('/delete',(req, res) => {
     let sql = "DELETE FROM product WHERE product_id="+req.body.product_id+"";
     let query = conn.query(sql, (err, results) => {
-        if (err) throw err;
+      if(err) throw err;
         res.redirect('/');
-        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
     });
-});
+  });
+
 
 //server
 app.listen(3000, () => {
