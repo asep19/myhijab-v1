@@ -65,6 +65,7 @@ app.post('/delete',(req, res) => {
     });
   });
 
+app.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login', failureFlash: true}));
 
 //server
 app.listen(3000, () => {
