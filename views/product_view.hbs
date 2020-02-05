@@ -9,26 +9,28 @@
 </head>
 <body>
     <div class="container">
-        <h2>Product List</h2>
+        <h2>Daftar Pelanggan</h2>
         <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
         <table class="table table-striped" id="mytable">
             <thead>
                 <tr>
-                    <th>ID Produk</th>
-                    <th>Nama Produk</th>   
-                    <th>Harga</th>
+                    <th>ID Pelanggan</th>
+                    <th>Nama Pelanggan</th>   
+                    <th>Email</th>
+                    <th>Password</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each results}}
                 <tr>
-                    <td>{{ product_id }}</td>
-                    <td>{{ product_name }}</td>
-                    <td>{{ product_price }}</td>
+                    <td>{{ id_pelanggan }}</td>
+                    <td>{{ nama_pelanggan }}</td>
+                    <td>{{ email }}</td>
+                    <td>{{ password }}</td>
                     <td>
-                        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ product_id }}" data-product_name="{{ product_name }}" data-product_price="{{ product_price }}">Edit</a>
-                        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ product_id }}">Delete</a>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ id_pelanggan }}" data-nama_pelanggan="{{ nama_pelanggan }}" data-email="{{ email }}" data-password="{{ password }}">Edit</a>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ id_pelanggan }}">Delete</a>
                     </td>
                 </tr>
                 {{/each}}
@@ -42,19 +44,23 @@
          <div class="modal-dialog" role="document">
            <div class="modal-content">
              <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+               <h5 class="modal-title" id="exampleModalLabel">Tambah Pelanggan</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
                </button>
              </div>
              <div class="modal-body">
                <div class="form-group">
-                   <input type="text" name="product_name" class="form-control" placeholder="Product Name" required>
+                   <input type="text" name="nama_pelanggan" class="form-control" placeholder="Nama" required>
                </div>
  
                <div class="form-group">
-                   <input type="text" name="product_price" class="form-control" placeholder="Price" required>
+                   <input type="email" name="email" class="form-control" placeholder="Email" required>
                </div>
+                  <div class="form-group">
+                   <input type="text" name="password" class="form-control" placeholder="Password" required>
+               </div>
+
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -79,15 +85,20 @@
             <div class="modal-body">
               <input type="hidden" name="_method" value="put">
               <div class="form-group">
-                  <input type="text" name="product_name" class="form-control product_name" placeholder="Product Name" required>
+                  <input type="text" name="nama_pelanggan" class="form-control nama_pelanggan" placeholder="nama_pelanggan" required>
               </div>
  
               <div class="form-group">
-                  <input type="text" name="product_price" class="form-control price" placeholder="Price" required>
+                  <input type="text" name="email" class="form-control email" placeholder="email" required>
               </div>
+
+              <div class="form-group">
+                  <input type="text" name="password" class="form-control password" placeholder="password" required>
+              </div>
+
             </div>
             <div class="modal-footer">
-              <input type="hidden" name="id" class="product_id">
+              <input type="hidden" name="id" class="id_pelanggan">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Update</button>
             </div>
@@ -124,13 +135,15 @@
       $(document).ready(function(){
     //tampilkan data ke modal untuk edit
       $('#mytable').on('click','.edit',function(){
-      var product_id = $(this).data('id');
-      var product_name = $(this).data('product_name');
-      var product_price = $(this).data('product_price');
+      var id_pelanggan = $(this).data('id');
+      var nama_pelanggan = $(this).data('nama_pelanggan');
+      var email = $(this).data('email');
+      var password = $(this).data('password');
       $('#EditModal').modal('show');
-      $('.product_name').val(product_name);
-      $('.price').val(product_price);
-      $('.product_id').val(product_id);
+      $('.nama_pelanggan').val(nama_pelanggan);
+      $('.email').val(email);
+      $('.password').val(password);
+      $('.id_pelanggan').val(id_pelanggan);
       });
     //tampilkan modal hapus record
     $('#mytable').on('click','.delete',function(){

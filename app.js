@@ -25,7 +25,7 @@ app.set('view engine', 'hbs');
 
 // route untuk homepage
 app.get('/', (req, res) => {
-    let sql = "SELECT * FROM product";
+    let sql = "SELECT * FROM pelanggan";
     let query = conn.query(sql, (err, results) => {
         if (err) throw err;
         res.render('product_view', {
@@ -37,8 +37,8 @@ app.get('/', (req, res) => {
 
 // tambah data
 app.post('/save', (req, res) => {
-    let data = {product_name: req.body.product_name, product_price: req.body.product_price};
-    let sql = "INSERT INTO product SET ?";
+    let data = {nama_pelanggan: req.body.nama_pelanggan, email: req.body.email, password: req.body.password};
+    let sql = "INSERT INTO pelanggan SET ?";
     let query = conn.query(sql, data, (err, results) => {
         if (err) throw err;
         res.redirect('/');
@@ -48,7 +48,7 @@ app.post('/save', (req, res) => {
 
 // edit produk
 app.post('/update', (req, res) => {
-    let sql = "UPDATE product SET product_name ='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.body.id;
+    let sql = "UPDATE pelanggan SET nama_pelanggan ='"+req.body.nama_pelanggan+"', email='"+req.body.email+"', password='"+ req.body.password+"' WHERE id_pelanggan="+req.body.id;
     let query = conn.query(sql, (err, results) => {
         if (err) throw err;
         //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
