@@ -15,3 +15,19 @@ passport.use(new LocalStrategy(
         });
     }
 ));
+
+app.post('/login',
+    passport.authenticate('local',
+    {successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true  })
+);
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+},
+function(username, password, done) {
+
+}
+));
